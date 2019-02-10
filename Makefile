@@ -24,11 +24,12 @@ docker_run: docker_build
 
 USERNAME=kszlak
 TAG=$(USERNAME)/hello-world-printer
+TAG_VERSIONED=$(TAG):1.0.0
 
 docker_push: docker_build
 	@docker login --username $(USERNAME) --password $${DOCKER_PASSWORD}; \
 	docker tag hello-world-printer $(TAG); \
-	docker tag 1.0.0 $(TAG); \
+	docker tag hello-world-printer $(TAG_VERSIONED); \
+	docker push $(TAG_VERSIONED); \
 	docker push $(TAG); \
-	docker push $(TAG2); \
 	docker logout;
